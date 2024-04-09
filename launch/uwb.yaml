@@ -1,0 +1,70 @@
+# %YAML:1.0
+# WARNING: AVOID any TAB in this file, otherwise there will be error.
+# parameters for UWB_Lokaliseirung
+
+# slam_fps: 50
+map_frame: map
+tracking_frame: base_link
+
+# is_xy_valid: true
+# is_z_valid: true
+# is_yaw_valid: false
+
+# is_v_xy_valid: false
+# is_v_z_valid: false
+
+# is_enable_visualization: false
+# slam_result_print_freq: 1
+
+# parameters for UWB localization
+# UWB setting ====================================
+# Tag
+tag_id: [0]
+
+# Anchor
+anchor_list: [0]
+anchor_0: [0, 0, 0]
+
+
+# common filter parameters =================================
+filter_type: 'EKF_Acc'
+
+# larger value produces heavier low pass effect on z, Q * z_damping_factor
+z_damping_factor: 0.1
+# larger value reduces low pass effect on xyz
+Q_scale: 0.1
+# uwb measurement error scaling, i.e. measurement noise
+R_scale: 300
+# acceleration gaussian noise
+tao_acc_sqrt: 0.3
+# acceleration bias noise
+tao_bias_sqrt: 0.001
+
+is_initialize_with_ceres: false
+initialization_innovation_threshold: 50
+normal_innovation_threshold: 2.0
+# if both set to 0, then will use static normal_innovation_threshold
+innovation_threshold_inc_on_succ: -0.2
+innovation_threshold_inc_on_fail: 0.6
+
+# EKF parameters -----------------------------
+
+
+# UKF parameters -----------------------------
+ukf_alpha: 0.1
+ukf_beta: 2
+ukf_kappa: 0
+
+
+#########################################################3
+# IMU : TDK ICM-42688p
+## Gyro FSR ±15.625/31.25/62.5/125/250/500/1000/2000
+## Gyro Sensitivity Error ±0.5%
+## Gyro Rate Noise ：0.0028dps/√Hz 
+## Accel FSR ±2/4/8/16
+## Accel Sensitivity Error ±0.5%
+## Accel Noise 70μg/√Hz
+gyro_rate_noise: 0.0001
+gyr_bias_noise: 0.00000001
+acc_noise: 0.01
+acc_bias_noise: 0.000001

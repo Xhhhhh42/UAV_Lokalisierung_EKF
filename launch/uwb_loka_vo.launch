@@ -1,0 +1,29 @@
+<launch>
+    <arg name="calibration_file" default="$(find uwb_loka)/config/camchain-imucam-euroc.yaml" />
+
+    <param name="acc_noise"       type="double" value="0.08" />
+    <param name="gyr_noise"       type="double" value="0.004" />
+    <param name="acc_bias_noise"  type="double" value="0.00004" />
+    <param name="gyr_bias_noise"  type="double" value="2.0e-6" />
+
+    <param name="init_sigma_pv"   type="double" value="0.01" />
+    <param name="init_sigma_rp"   type="double" value="0.01" />
+    <param name="init_sigma_yaw"  type="double" value="5.0" />
+
+    <param name="vo_topic" value="/pose_orbslam" />
+    <param name="imu_topic" value="/imu0" />
+
+	<param name="log_folder"      type="string" value="$(find uwb_loka)" />
+
+	<node pkg="uwb_loka" type="uwb_loka_node" name="uwb_loka_node" output="screen">
+		<rosparam command="load" file="$(find uwb_loka)/launch/uwb.yaml"/>
+        <rosparam command="load" file="$(arg calibration_file)"/>
+	</node> 
+	
+	<!-- <node pkg="tf" type="static_transform_publisher" name="base_link_laser_broadcaster" args="0 0 0 0 0 0 base_link laser 10" /> -->
+	<!-- <node pkg="tf" type="static_transform_publisher" name="world_map_broadcaster" args="0 0 0 0 0 0 world map 10" /> -->
+	<node pkg="rviz" type="rviz" name="rviz" output="screen" 
+		args="-d $(find uwb_loka)/rviz/default.rviz" required="true">
+	</node>
+
+</launch>
